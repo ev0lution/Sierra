@@ -1,1 +1,7 @@
 language: node_js
+node_js:
+  - "node"
+  - "8"
+before_install:
+  - npm i -g discord.js@11.3.0
+  - npm i -g express@4.16.2
