@@ -2,7 +2,7 @@ exports.run = (client, message) => {
 	message.reply({"embed": {
     "title": "Information",
     "description": "I'm a Discord bot made for the purpose of assisting the normal duties of Server Admins and Mods.",
-    "color": 4886754,
+    "color": 12390624,
     "footer": {
       "icon_url": "https://cdn.discordapp.com/avatars/148680149548793856/6f019240d669ed110cb165b53f85ae4f.jpg?size=1024",
       "text": "Andrew#2659"
