@@ -3,7 +3,7 @@ const express = require('express');
 const app = express();
 
 const date = new Date().toISOString().
-	replace(/T/, ' '),
+	replace(/T/, ' ').
 	replace(/\..+/, '');
 
 app.get("/", (request, response) => {
