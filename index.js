@@ -1,8 +1,13 @@
 const http = require('http');
 const express = require('express');
 const app = express();
+
+const date = new Date().toISOString().
+	replace(/T/, ' '),
+	replace(/\..+/, '');
+
 app.get("/", (request, response) => {
-  console.log(Date.now() + " Ping Received");
+  console.log(`[${date}]` + " Ping Received");
   response.sendStatus(200);
 });
 app.listen(process.env.PORT);
