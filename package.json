@@ -1,0 +1,25 @@
+{
+  "name": "sierra",
+  "version": "0.0.3",
+  "description": "A bot for embeds / info.",
+  "main": "node index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "express": "^4.16.2",
+    "discord.js": "^11.3.0"
+  },
+  "engines": {
+    "node": "8.9.4"
+  },
+  "repository": {
+    "url": "https://glitch.com/edit/#!/welcome-project"
+  },
+  "license": "MIT",
+  "keywords": [
+    "node",
+    "glitch",
+    "express"
+  ]
+}
