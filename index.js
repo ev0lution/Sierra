@@ -2,11 +2,10 @@ const http = require('http');
 const express = require('express');
 const app = express();
 
-const date = new Date().toISOString().
-	replace(/T/, ' ').
-	replace(/\..+/, '');
-
 app.get("/", (request, response) => {
+  const date = new Date().toISOString().
+  replace(/T/, ' ').
+  replace(/\..+/, '');
   console.log(`[${date}]` + " Ping Received");
   response.sendStatus(200);
 });
