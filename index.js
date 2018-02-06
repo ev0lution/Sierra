@@ -2,11 +2,10 @@ const http = require('http');
 const express = require('express');
 const app = express();
 
-const date = new Date().toISOString().
-	replace(/T/, ' ').
-	replace(/\..+/, '');
-
 app.get("/", (request, response) => {
+  const date = new Date().toISOString().
+  replace(/T/, ' ').
+  replace(/\..+/, '');
   console.log(`[${date}]` + " Ping Received");
   response.sendStatus(200);
 });
@@ -18,9 +17,6 @@ setInterval(() => {
 const Discord = require("discord.js");
 const client = new Discord.Client();
 const fs = require("fs");
-
-const sql = require("sqlite");
-sql.open("./guilds.sqlite");
 
 const config = require("./config.json");
 
@@ -43,13 +39,6 @@ fs.readdir("./events/", (err, files) => {
 client.on("message", message => {
   if (message.author.bot) return;
   if(message.content.indexOf(config.prefix) !== 0) return;
-  if (message.channel.type === "dm") {
-  	message.reply({"embed": {
-    "title": "Error",
-    "description": "Sorry you can't use commands in DMs.",
-    "color": 16713984
-    }});
-  }
 
   // This is the best way to define args. Trust me.
   const args = message.content.slice(config.prefix.length).trim().split(/ +/g);
