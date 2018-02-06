@@ -19,6 +19,9 @@ const Discord = require("discord.js");
 const client = new Discord.Client();
 const fs = require("fs");
 
+const sql = require("sqlite");
+sql.open("./score.sqlite");
+
 const config = require("./config.json");
 
 // Prints 'I'm online' to console if startup is successful
