@@ -38,7 +38,7 @@ fs.readdir("./events/", (err, files) => {
 
 client.on("message", message => {
   if (message.author.bot) return;
-  if(message.content.indexOf(config.prefix) !== 0) return;
+  if (message.content.indexOf(config.prefix) !== 0) return;
   if (message.channel.type === "dm") return;
 
   // This is the best way to define args. Trust me.
@@ -50,7 +50,7 @@ client.on("message", message => {
     let commandFile = require(`./commands/${command}.js`);
     commandFile.run(client, message, args);
   } catch (err) {
-    return;
+    console.error(err);
   }
 });
 

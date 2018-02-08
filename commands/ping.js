@@ -1,3 +1,5 @@
 exports.run = (client, message, args) => {
-    message.channel.send("pong!").catch(console.error);
+	message.channel.startTyping();
+    message.channel.send("pong!");
+    message.channel.stopTyping();
 }
