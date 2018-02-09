@@ -1,22 +1,29 @@
 exports.run = (client, message) => {
+  message.channel.startTyping();
   message.reply({"embed": {
     "title": "Help",
-    "description": "I don't know many commands yet, but here are the ones that I *do* know.",
+    "description": "I don't know many commands yet, but here are the links to the documentation.",
     "color": 4886754,
     "thumbnail": {"url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Information_icon4.svg/600px-Information_icon4.svg.png"},
     "fields": [
       {
-        "name": "!status",
-        "value": "`Bot owner only`\nThis command changes my status.\nValid statuses include:\n• online\n• dnd\n• idle\n• invisible"
+        "name": "Commands List",
+        "value": "https://github.com/NootSponge/Sierra/wiki/Commands"
       },
       {
-        "name": "!reload",
-        "value": "`Bot owner only`\nThis command reloads one of my other commands, that way it's faster to develop them."
+        "name": "Wiki",
+        "value": "https://github.com/NootSponge/Sierra/wiki/"
       },
       {
-        "name": "!ping",
-        "value": "This command pings me and makes sure I'm still alive!"
+        "name": "Found a bug?",
+        "value": "https://github.com/NootSponge/Sierra/issues/"
+      },
+      {
+        "name": "Want to suggest a feature?",
+        "value": "https://discord.gg/ryXbjvE"
       }
     ]
-  }});
+  }
+});
+  message.channel.stopTyping();
 }

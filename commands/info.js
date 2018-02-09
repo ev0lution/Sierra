@@ -1,8 +1,9 @@
 exports.run = (client, message) => {
+  message.channel.startTyping();
 	message.reply({"embed": {
     "title": "Information",
-    "description": "I'm a Discord bot made for the purpose of assisting the normal duties of Server Admins and Mods.",
-    "color": 12390624,
+    "description": "I'm a Discord bot made for the purpose of 'because why not'. I was created on Feburuary 4th, 2018, and that's about it. Here I am!",
+    "color": 8004607,
     "footer": {
       "icon_url": "https://cdn.discordapp.com/avatars/148680149548793856/6f019240d669ed110cb165b53f85ae4f.jpg?size=1024",
       "text": "Andrew#2659"
@@ -29,4 +30,5 @@ exports.run = (client, message) => {
       }
     ]
   }});
+  message.channel.stopTyping();
 }
