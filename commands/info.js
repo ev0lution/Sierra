@@ -1,6 +1,21 @@
 exports.run = (client, message) => {
+  var date = new Date();
+  client.channels.find("id","413855266929508353").send({"embed": {
+    "title": "`!info` command executed",
+    "description": `Command executed on guild ${message.guild.name} (ID: ${message.guild.id}) by ${message.author.tag}`,
+    "color": 4886754,
+    "author": {
+      "name": `${message.author.tag}`,
+      "icon_url": `${message.author.displayAvatarURL}`
+    },
+    "timestamp": `${date.toISOString()}`,
+    "footer": {
+      "text": "Command Execution"
+    }
+  }
+});
   message.channel.startTyping();
-	message.reply({"embed": {
+	message.author.send({"embed": {
     "title": "Information",
     "description": "I'm a Discord bot made for the purpose of 'because why not'. I was created on Feburuary 4th, 2018, and that's about it. Here I am!",
     "color": 8004607,
@@ -30,5 +45,6 @@ exports.run = (client, message) => {
       }
     ]
   }});
+  message.reply("Check your DMs.");
   message.channel.stopTyping();
 }

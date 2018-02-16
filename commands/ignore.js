@@ -1,65 +1,42 @@
-var mysql      = require('mysql');
-var pool  = mysql.createPool({
+var mysql = require('mysql');
+var pool = mysql.createPool({
   connectionLimit : 10,
   host            : process.env.SQLHOST,
   user            : process.env.SQLUSER,
-  password 		  : process.env.SQLPASS,
+  password 		  	: process.env.SQLPASS,
   database        : 'sierra'
 });
 
 exports.run = (client, message, args) => {
-	message.channel.startTyping();
-	let args1 = args[0];
-	let channelMentions = message.mentions.channels.array();
-	if (!args || args.size < 1 || args === undefined) {
-		message.reply({"embed": {
-    	"title": "Error",
-    	"description": "Usage: `!ignore <channel | list>`",
-    	"color": 16713984
-    	}});
-    	message.channel.stopTyping();
-	} else
-	if (args1 !== "list") {
-		message.reply({"embed": {
-    	"title": "Error",
-    	"description": "Usage: `!ignore <channel | list>`",
-    	"color": 16713984
-    	}});
-    	message.channel.stopTyping();
-	} else
-	if (args1 === "list") {
-		let guildId = message.guild.id;
-		let guildExistsInDB = "";
-    	pool.query("SELECT * FROM ignoredChannels WHERE guildID = ?", [guildId], function (error, results, fields) {
-		  if (error) throw error;
-		  let guildExistsInDB = results.length;
-		  if (guildExistsInDB === 0) {
-		  	pool.query("INSERT INTO ignoredChannels (guildID, ignoredIDs) VALUES (?, ?)", [guildId, ""], function (error) {
-		  		if (error) throw error;
-		  	});
-		  	message.reply({"embed": {
-		      "title": "Ignored Channels",
-		      "description": "There are no ignored channels on this server.",
-		      "color": 8311585
-		    }});
-		    message.channel.stopTyping();
-		  } else
-		  if (guildExistsInDB === 1) {
-		  	pool.query("SELECT ignoredIDs FROM ignoredChannels WHERE guildID = ?", [guildId], function (error, results) {
-		  		if (error) throw error;
-		  		message.reply(Array.isArray(results));
-		  		message.channel.stopTyping();
-			});
-		  }
-		});
-		return;
+	let has_manageGuild = message.member.hasPermission("MANAGE_GUILD");
+	var date = new Date();
+  client.channels.find("id","413855266929508353").send({"embed": {
+    "title": "`!help` command executed",
+    "description": `Command executed on guild ${message.guild.name} (ID: ${message.guild.id}) by ${message.author.tag},\nwith arguments ${args.toString()}`,
+    "color": 4886754,
+    "author": {
+      "name": `${message.author.tag}`,
+      "icon_url": `${message.author.displayAvatarURL}`
+    },
+    "timestamp": `${date.toISOString()}`,
+    "footer": {
+      "text": "Command Execution"
     }
-	if (!channelMentions || channelMentions.length < 1 || channelMentions === undefined)  {
-		message.reply({"embed": {
-	 	"title": "Error",
-		"description": "Please include a valid channel mention.\nDon't know how to mention channels? Check [here](https://github.com/NootSponge/Sierra/wiki/How-to-mention-a-channel).",
-		"color": 16713984
-		}});
+  }
+	});
+	if(has_manageGuild === false) {
+		return message.reply({"embed": {
+  		"color": 16711680,
+  		"title": "Command Error",
+  		"description": "You don't have access to use this command!\nYou must have the Manage Guild permission."
+  	}});
+	} else
+	if(!args || args.size < 1 || args[0] === undefined) {
+		message.channel.stopTyping();
+    return message.reply("Must provide a valid channel name.");
 	}
-	message.channel.stopTyping();
+	pool.query("SHOW TABLES LIKE ?", [message.guild.id], function (error, results, fields) {
+  	if(error) throw error;
+  	console.log(results.toString());
+	});
 }
