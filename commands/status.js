@@ -33,7 +33,7 @@ exports.run = (client, message, args) => {
         "description": "Bot status set to `idle`.",
         "color": 8311585
       }});
-      break
+      break;
     case "dnd":
       client.user.setStatus("dnd");
       message.reply({"embed": {
