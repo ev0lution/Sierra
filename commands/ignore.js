@@ -1,3 +1,4 @@
+const Discord = require("discord.js");
 var mysql = require('mysql');
 var pool = mysql.createPool({
   connectionLimit : 10,
@@ -34,9 +35,30 @@ exports.run = (client, message, args) => {
 	if(!args || args.size < 1 || args[0] === undefined) {
 		message.channel.stopTyping();
     return message.reply("Must provide a valid channel name.");
-	}
-	pool.query("SHOW TABLES LIKE ?", [message.guild.id], function (error, results, fields) {
-  	if(error) throw error;
-  	console.log(results.toString());
-	});
+  }
+  if (args[0] === "list") {
+	  pool.query("SELECT * FROM ignoredChannels WHERE guildID = ?", [message.guild.id], function (error, results, fields) {
+      if (error) throw error;
+      if (results[0].ignoredIDs === '') {
+        return message.reply({"embed": {
+          "color": 4886754,
+          "title": "Ignored Channels",
+          "description": "You do not have any ignored channels."
+        }});
+      }
+      var ignoredChannels = results[0].ignoredIDs.split(" "); // Converts ignored channel IDs from column to an array.
+      var mentionsArray = new Array();
+      ignoredChannels.forEach(function(string) {
+        ignoredChannelMentions = "<#" + string + ">"; // Adds the mention brackets.
+        mentionsArray.push(ignoredChannelMentions); // Adds the full mention to an array.
+      });
+      var finalMentions = mentionsArray.join("\n"); // Makes the mentions print correctly
+      const embed = new Discord.RichEmbed()
+        .setTitle("Ignored Channels")
+        .setColor(4886754)
+        .setDescription("You have " + mentionsArray.length + " ignored channel(s).\n" + finalMentions);
+      return message.reply({embed});
+    });
+  }
+  // To-do: Work on rest of args
 }
