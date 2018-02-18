@@ -43,7 +43,7 @@ exports.run = (client, message, args) => {
       }});
       break;
     case "invisible":
-      client.user.setStatus("offline");
+      client.user.setStatus("invisible");
       message.reply({"embed": {
         "title": "Success",
         "description": "Bot status set to `invisible`.",
