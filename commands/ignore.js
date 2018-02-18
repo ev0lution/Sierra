@@ -11,8 +11,8 @@ var pool = mysql.createPool({
 exports.run = (client, message, args) => {
 	let has_manageGuild = message.member.hasPermission("MANAGE_GUILD");
 	var date = new Date();
-  client.channels.find("id","413855266929508353").send({"embed": {
-    "title": "`!help` command executed",
+  client.channels.get("id","413855266929508353").send({"embed": {
+    "title": "`!ignore` command executed",
     "description": `Command executed on guild ${message.guild.name} (ID: ${message.guild.id}) by ${message.author.tag},\nwith arguments ${args.toString()}`,
     "color": 4886754,
     "author": {
